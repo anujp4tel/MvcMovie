@@ -2,10 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <ApplicationIcon />
+    <Win32Resource />
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Properties\PublishProfiles\MvcMovie20171029104417 - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\MvcMovieHuyVu - Web Deploy.pubxml" />
+    <None Remove="Properties\PublishProfiles\MvcMovieLab - Web Deploy.pubxml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -46,3 +46,4 @@
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+@Html.RouteLink("Add a Review", new{ action = "Create", Controller = "Review", ID = Model.ID })
