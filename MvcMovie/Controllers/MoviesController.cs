@@ -56,12 +56,20 @@ namespace MvcMovie.Controllers
 
             var movie = await _context.Movie
                 .SingleOrDefaultAsync(m => m.ID == id);
+            var reviews = from m in _context.Review
+                          select m;
             if (movie == null)
             {
                 return NotFound();
             }
 
-            return View(movie);
+            var movideDetail = new MovieDetailModel();
+            movideDetail.movie = movie;
+            //var reviewContext = _context.Review.Include(r => r.Movie).Where(m => m.MovieID == id);
+            var reviewList = await reviews.ToListAsync();
+            movideDetail.reviews = reviewList;
+
+            return View(movideDetail);
         }
 
         // GET: Movies/Create
@@ -160,12 +168,21 @@ namespace MvcMovie.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var reviewContext = _context.Review.Include(r => r.Movie).Where(m => m.MovieID == id);
+            var reviewList = await reviewContext.ToListAsync();
+            if (reviewList.Count > 0)
+                return RedirectToAction("DeleteError");
+
             var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
             _context.Movie.Remove(movie);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult DeleteError()
+        {
+            return View();
+        }
         private bool MovieExists(int id)
         {
             return _context.Movie.Any(e => e.ID == id);

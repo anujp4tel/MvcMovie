@@ -84,7 +84,7 @@ namespace MvcMovie.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Details", "Movies", new { id = id });
             }
-            ViewData["MovieID"] = new SelectList(_context.Movie, "ID", "Title", review.MovieID);
+            //ViewData["MovieID"] = new SelectList(_context.Movie, "ID", "Title", review.MovieID);
             return View(review);
         }
 
