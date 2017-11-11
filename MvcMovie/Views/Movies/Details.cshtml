@@ -11,42 +11,42 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.movie.Title)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.movie.Title)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ReleaseDate)
+            @Html.DisplayNameFor(model => model.movie.ReleaseDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ReleaseDate)
+            @Html.DisplayFor(model => model.movie.ReleaseDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Genre)
+            @Html.DisplayNameFor(model => model.movie.Genre)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Genre)
+            @Html.DisplayFor(model => model.movie.Genre)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.movie.Price)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.movie.Price)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Rating)
+            @Html.DisplayNameFor(model => model.movie.Rating)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Rating)
+            @Html.DisplayFor(model => model.movie.Rating)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.movie.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
-@html.routelink("add a review", new{ action = "create", controller = "review", id = model.id })
+@Html.RouteLink("add a review", new{ action = "create", controller = "review", id = Model.movie.ID })
 
 @{
     ViewData["Title"] = "Details";
@@ -54,31 +54,42 @@
 
 <h2>Details</h2>
 
-<div>
+
     <h4>Review</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Detail)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Detail)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Movie)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Movie.Title)
-        </dd>
-    </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", "Reviews", new { id = Model.ReviewID }) | 
-    @Html.ActionLink("Delete", "Delete", "Reviews", new { id = Model.ReviewID })
-</div>xz
+    @foreach (var item in Model.reviews)
+    {
+
+        if (!(item == null))
+        {
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => item.Detail)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => item.Detail)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => item.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => item.Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => item.Movie)
+                    </dt>
+                    @*<dd>
+                            @Html.DisplayFor(model => model.Movie.Title)
+                        </dd>*@
+                </dl>
+
+
+                <div>
+                    @Html.ActionLink("Edit", "Edit", "Reviews", new { id = item.ReviewID }) |
+                    @Html.ActionLink("Delete", "Delete", "Reviews", new { id = item.ReviewID })
+                </div>
+                
+            </div>
+        }
+    }
