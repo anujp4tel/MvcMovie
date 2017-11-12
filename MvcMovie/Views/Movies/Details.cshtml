@@ -79,15 +79,12 @@
                     <dt>
                         @Html.DisplayNameFor(model => item.Movie)
                     </dt>
-                    @*<dd>
-                            @Html.DisplayFor(model => model.Movie.Title)
-                        </dd>*@
                 </dl>
 
 
                 <div>
-                    @Html.ActionLink("Edit", "Edit", "Reviews", new { id = item.ReviewID }) |
-                    @Html.ActionLink("Delete", "Delete", "Reviews", new { id = item.ReviewID })
+                    @Html.RouteLink("Edit", new { action = "Edit", controller = "review", id = item.ReviewID })
+                    @Html.RouteLink("Delete", new { action = "Delete", controller = "review", id = item.ReviewID })
                 </div>
                 
             </div>
