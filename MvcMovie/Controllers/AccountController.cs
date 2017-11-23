@@ -39,7 +39,7 @@ namespace MvcMovie.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name = model.Name };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -101,6 +101,17 @@ namespace MvcMovie.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Rename()
+        {
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("AccessDenied", "Account");
+
+            return View();
+        }
+
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -109,9 +120,9 @@ namespace MvcMovie.Controllers
         {
             ApplicationUser model = await _userManager.GetUserAsync(User);
 
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
-                return NotFound();
+                return RedirectToAction("AccessDenied", "Account");
             }
 
             try

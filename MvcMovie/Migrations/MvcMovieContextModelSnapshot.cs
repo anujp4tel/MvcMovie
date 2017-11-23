@@ -147,6 +147,9 @@ namespace MvcMovie.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
+                    b.Property<string>("Name")
+                        .IsRequired();
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
 

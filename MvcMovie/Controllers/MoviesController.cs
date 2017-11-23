@@ -75,6 +75,9 @@ namespace MvcMovie.Controllers
         // GET: Movies/Create
         public IActionResult Create()
         {
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("AccessDenied", "Account");
+
             return View();
         }
 
@@ -101,6 +104,9 @@ namespace MvcMovie.Controllers
             {
                 return NotFound();
             }
+
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("AccessDenied", "Account");
 
             var movie = await _context.Movie.SingleOrDefaultAsync(m => m.ID == id);
             if (movie == null)
@@ -152,6 +158,9 @@ namespace MvcMovie.Controllers
             {
                 return NotFound();
             }
+
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("AccessDenied", "Account");
 
             var movie = await _context.Movie
                 .SingleOrDefaultAsync(m => m.ID == id);

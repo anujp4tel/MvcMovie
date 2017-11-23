@@ -27,7 +27,9 @@ namespace MvcMovie
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<MvcMovieContext>();
+            .AddEntityFrameworkStores<MvcMovieContext>().AddDefaultTokenProviders();
+            services.AddDbContext<MvcMovieContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("MvcMovieContext")));
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -55,8 +57,9 @@ namespace MvcMovie
             });
             services.AddMvc();
 
+            
             services.AddDbContext<MvcMovieContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("MvcMovieContext")));
+    options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -61,6 +61,9 @@ namespace MvcMovie.Controllers
         // GET: Reviews/Create
         public IActionResult Create(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("AccessDenied", "Account");
+
             ViewBag.id = id;
             if (id == null)
             {
@@ -95,6 +98,9 @@ namespace MvcMovie.Controllers
             {
                 return NotFound();
             }
+
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("AccessDenied", "Account");
 
             var review = await _context.Review.SingleOrDefaultAsync(m => m.ReviewID == id);
             if (review == null)
@@ -148,6 +154,9 @@ namespace MvcMovie.Controllers
             {
                 return NotFound();
             }
+
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("AccessDenied", "Account");
 
             var review = await _context.Review
                 .Include(r => r.Movie)

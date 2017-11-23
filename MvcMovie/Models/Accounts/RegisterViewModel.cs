@@ -9,9 +9,10 @@ namespace MvcMovie.Models.Accounts
     public class RegisterViewModel
     {
         [Required]
-        [StringLength(20, ErrorMessage = "Name length mus be less than 20")]
+        [StringLength(20, ErrorMessage = "Name length must be less than 20")]
         [Display(Name = "Name")]
         public string Name { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
