@@ -1,8 +1,10 @@
-﻿@{
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    <h1>Welcome to the Movies App</h1>
-    <a asp-controller="Movies" asp-action="Index" class="btn btn-success">Show me the movies</a>
-</div>
+<app asp-prerender-module="ClientApp/dist/main-server">Loading...</app>
+
+<script src="~/dist/vendor.js" asp-append-version="true"></script>
+@section scripts {
+    <script src="~/dist/main-client.js" asp-append-version="true"></script>
+}
